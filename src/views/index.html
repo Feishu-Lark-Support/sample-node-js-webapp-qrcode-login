@@ -30,7 +30,7 @@
                 const tmp_code = event.data;
                 // 在授权页面地址上拼接上参数 tmp_code，并跳转
                 // 这里的 goto 是指上面创建 QRLogin 实例时的 goto 参数
-                window.open(`${goto}&tmp_code=${tmp_code}`);
+                window.location.href = `${goto}&tmp_code=${tmp_code}`;
             }
         };
         if (typeof window.addEventListener != 'undefined') {
