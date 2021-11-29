@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="qrCode"></div>
+</body>
+<script src="https://sf3-cn.feishucdn.com/obj/static/lark/passport/qrcode/LarkSSOSDKWebQRCode-1.0.1.js"></script>
+<script>
+    setTimeout(() => {
+        // 更换成自己的
+        const CLIENT_ID = 'cli_a03ee1eb59b9500e';
+        // 更换成自己的
+        const REDIRECT_URI = encodeURIComponent('http://127.0.0.1:9000/login');
+        const goto = `https://www.feishu.cn/suite/passport/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&state=STATE`;
+        const QRLoginObj = QRLogin({
+            id: 'qrCode',
+            goto,
+            width: '500',
+            height: '500',
+        });
+        console.log(QRLoginObj);
+        const handleMessage = function (event) {
+            const origin = event.origin;
+            // 使用 QRLoginObj.matchOrigin 方法来判断 message 是否来自飞书页面
+            if (QRLoginObj.matchOrigin(origin)) {
+                console.log(event);
+                const tmp_code = event.data;
+                // 在授权页面地址上拼接上参数 tmp_code，并跳转
+                // 这里的 goto 是指上面创建 QRLogin 实例时的 goto 参数
+                window.open(`${goto}&tmp_code=${tmp_code}`);
+            }
+        };
+        if (typeof window.addEventListener != 'undefined') {
+            window.addEventListener('message', handleMessage, false);
+        } else if (typeof window.attachEvent != 'undefined') {
+            window.attachEvent('onmessage', handleMessage);
+        }
+    }, 16);
+</script>
+</script>
+</html>
