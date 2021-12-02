@@ -34,8 +34,6 @@ export const loginHandler: Handler = async (req: Request, res: Response) => {
             grant_type: 'authorization_code',
             redirect_uri: REDIRECT_URI,
         },
-    }).catch((err) => {
-        console.log(err);
     });
     const data: OauthTokenResponse = (response as any).data as OauthTokenResponse;
     const uuid = v4UUid();
