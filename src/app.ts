@@ -2,7 +2,6 @@ import express from 'express';
 import {NextFunction, Request, Response} from 'express';
 import cors from 'cors';
 import {PORT} from "./config";
-import path from "path";
 
 import {router} from "./route";
 import {getMyIPAddress} from "./utils";
@@ -31,7 +30,12 @@ router.forEach((r) => {
 });
 
 app.listen(PORT, async () => {
-    console.log(`localhost: server is running on http://127.0.0.1:${PORT}/`);
     const networkIp = await getMyIPAddress();
-    console.log(`network: server is running on http://${networkIp}:${PORT}/`);
+    console.log(`  App running at:
+  - Local:   http://127.0.0.1:${PORT}/
+  - Network: http://${networkIp}:${PORT}/
+
+  Note that the development build is not optimized.
+  To create a production build, run npm run build.
+`);
 });
