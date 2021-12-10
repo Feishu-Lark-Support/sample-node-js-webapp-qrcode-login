@@ -4,11 +4,8 @@ import {v4 as v4UUid} from "uuid";
 import path from "path";
 
 import {
-    CLIENT_ID,
-    CLIENT_SECRET,
     PASSPORT_OAUTH_TOKEN,
     PASSPORT_OAUTH_USERINFO,
-    REDIRECT_URI
 } from "../config";
 import {Handler} from "../route";
 import db from "../db";
@@ -29,10 +26,10 @@ export const loginHandler: Handler = async (req: Request, res: Response) => {
         },
         params: {
             code,
-            client_id: CLIENT_ID,
-            client_secret: CLIENT_SECRET,
+            client_id: process.env.CLIENT_ID,
+            client_secret: process.env.CLIENT_SECRET,
             grant_type: 'authorization_code',
-            redirect_uri: REDIRECT_URI,
+            redirect_uri: process.env.REDIRECT_URI,
         },
     });
     const data: OauthTokenResponse = (response as any).data as OauthTokenResponse;

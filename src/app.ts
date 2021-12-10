@@ -2,11 +2,14 @@ import express from 'express';
 import {NextFunction, Request, Response} from 'express';
 import cors from 'cors';
 import {PORT} from "./config";
+import * as dotenv from 'dotenv';
+import * as path from "path";
 
 import {router} from "./route";
 import {getMyIPAddress} from "./utils";
 
 const app = express();
+dotenv.config({path: path.resolve(__dirname, '../.env')});
 
 app.use(cors());
 app.use((req: Request, res: Response, next: NextFunction) => {
