@@ -1,4 +1,4 @@
-# sample-node-js-webapp-qrcode-login
+#  sample-node-js-webapp-qrcode-login
 
 1. [概述](#概述)
 2. [实现功能](#实现功能)
@@ -20,8 +20,8 @@
 # 实现功能
 
 - 可以扩展的 Node.js Webapp
-- uuid 实现多用户用户信息管理
-- 获取扫码用户的用户信息
+- uuid 实现多用户的用户信息管理
+- 在第三方系统通过飞书账号登录并获取用户信息
 
 #	运行环境
 
@@ -45,43 +45,25 @@ npm install --registry=https://registry.npm.taobao.org
 
 # 快速使用
 
-1. 修改配置 config `src/config/index.ts`
+1. 重命名 `.env.sample` 为 `.env`。
 
-```typescript
-/**
- * redirect_uri配置参考文档：https://open.feishu.cn/document/uYjL24iN/uYjN3QjL2YzN04iN2cDN
- * 配置说明：在这里配置 redirect_uri 主要用于获取访问用户信息的 access_token。access_token 是开发者用户获取用户信息的唯一凭证
- * 示例值：https://open.feishu.cn/
- * 注意事项：必须与飞书开放平台-开发者后台-应用详情-安全设置-重定向 URL 列表中配置的 URL 保持一致
- */
-export const REDIRECT_URI = 'Enter_the_Redirect_URI_Here';
-
-export const CLIENT_ID = 'Enter_the_Application_Id_Here';
-export const CLIENT_SECRET = 'Enter_the_Application_Secret_Here';
+```shel
+cp .env.sample .env
 ```
 
-2. 构造二维码页面 `src/views/index.html`
+2. 分别替换变量 `CLIENT_ID`, `CLIENT_SECRET`  和 `REDIRECT_UR` 的值。
+
+- `CLIENT_ID` 和 `CLIENT_SECRET` 获取说明：[如何获取client_id和client_secret？](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/guide/faq#508869c1)
+- `REDIRECT_URI` 是用于获取访问用户信息的 `access_token`，`access_token` 是开发者获取用户信息的唯一凭证。配置并获取重定向URL说明：[配置重定向URL](https://open.feishu.cn/document/uYjL24iN/uYjN3QjL2YzN04iN2cDN)
 
 ```typescript
-const CLIENT_ID = 'Enter_the_Application_Id_Here';
-/**
- * redirect_uri配置参考文档：https://open.feishu.cn/document/uYjL24iN/uYjN3QjL2YzN04iN2cDN
- * 配置步骤：配置步骤与第一步保持一致
- * 配置说明：这里配置 redirect_uri 用户构建网页应用二维码界面，SDK 会校验 redirect_uri 的合法性，如果与开发者后台中配置 redirect_uri 列表不一致，将会无法构建二维码界面。
- * 示例值：https://open.feishu.cn/
- * 注意事项：同第一步。
- */
-const REDIRECT_URI = encodeURIComponent('Enter_the_Redirect_URI_Here');
-const goto = `https://www.feishu.cn/suite/passport/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&state=STATE`;
-const QRLoginObj = QRLogin({
-	id: 'qrCode',
-	goto,
-	width: '500',
-	height: '500',
-});
+// 示例值
+CLIENT_ID=cli_xxxxx
+CLIENT_SECRET=xxxxx
+REDIRECT_URI=http://127.0.0.1:9000/login
 ```
 
-3. 在项目目录下，执行命令
+2. 配置完信息后，在项目目录下执行如下命令
 
 ```sh
 npm run dev
@@ -105,7 +87,9 @@ get ------- /v1/users/:user_id
 
 # Docker
 
-
+1. 确保你的电脑上可以正常运行 `Docker`，在命令行窗口输入 `docker --version` 验证，如未正常输入 docker 版本，请先按照安装指南按照 docker：[Get Docker](https://docs.docker.com/get-docker/)
+2. 按照 [上述步骤](#快速使用) 已经修改了 Sample 中的配置文件为 `.env`
+3. 在 macOS/Linux 端在命令行窗口执行命令 `sh exec.sh` 即可将服务运行在 Docker；或者输入命令 `.\exec.ps1` 到 Windows PowerShell 里执行就可以将服务运行在 Docker（如果无法直接执行，复制指令到 CMD 窗口运行）。
 
 # 更多信息
 
