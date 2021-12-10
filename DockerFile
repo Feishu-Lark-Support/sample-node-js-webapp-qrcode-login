@@ -1,0 +1,11 @@
+FROM node
+
+WORKDIR /home/app
+
+ADD package.json /home/app
+RUN npm install
+ADD . /home/app
+
+CMD ["npm", "run", "dev"]
+
+EXPOSE 9000
