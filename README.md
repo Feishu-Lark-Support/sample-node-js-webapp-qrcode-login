@@ -58,8 +58,8 @@ cp .env.sample .env
 
 ```typescript
 // 示例值
-CLIENT_ID=cli_xxxxx
-CLIENT_SECRET=xxxxx
+CLIENT_ID=cli_xxxxx # 表示应用的 App_ID
+CLIENT_SECRET=xxxxx # 表示应用的 App_Secret
 REDIRECT_URI=http://127.0.0.1:9000/login
 ```
 
