@@ -30,7 +30,7 @@ router.forEach((r) => {
 });
 
 app.listen(PORT, async () => {
-    const networkIp = await getMyIPAddress();
+    const networkIp = await getMyIPAddress() || '127.0.0.1';
     console.log(`  App running at:
   - Local:   http://127.0.0.1:${PORT}/
   - Network: http://${networkIp}:${PORT}/

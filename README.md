@@ -1,17 +1,27 @@
 # sample-node-js-webapp-qrcode-login
 
 1. [概述](#概述)
+2. [实现功能](#实现功能)
 2. [运行环境](#运行环境)
 3. [安装方法](#安装方法)
 4. [快速使用](#快速使用)
+4. [Docker](#Docker)
 4. [更多信息](#更多信息)
 4. [License](#License)
 
 # 概述
 
-为了实现在网页内部完成授权登录的流程，避免跳转到飞书登录页，保证流畅的体验，可以接入二维码 SDK 将飞书登录的二维码嵌入到网页中。
+​	在 README 之前，请保证先登录 [飞书开放平台](https://open.feishu.cn/) 并拥有一个企业自建应用/应用商店应用，他们的具体区别可见文档：[自建应用与商店应用](https://open.feishu.cn/document/home/app-types-introduction/self-built-apps-and-store-apps)。
 
-这个 Sample 主要实现了用户在自己的系统内通过飞书扫码网页上的二维码并获取到自己的个人信息。
+​	创建并拥有飞书应用后，需要启用飞书应用的网页应用能力，可以参考文档 [快速集成网页应用](https://open.feishu.cn/document/home/integrating-web-apps-in-5-minutes/create-app-and-configuration)。当创建好网页应用后，为了让你的同事或其他人也能通过飞书账号登录到你的网页应用内，需要设置 [应用的可用性](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)。
+
+​	当你的网页应用需要飞书账号来授权登录时，并且希望可以在自己网页系统内部完成授权登录的流程，避免跳转到飞书登录页，保证流畅的体验，可以接入二维码 SDK 将飞书登录的二维码嵌入到网页中。
+
+# 实现功能
+
+- 可以扩展的 Node.js Webapp
+- uuid 实现多用户用户信息管理
+- 获取扫码用户的用户信息
 
 #	运行环境
 
@@ -38,7 +48,13 @@ npm install --registry=https://registry.npm.taobao.org
 1. 修改配置 config `src/config/index.ts`
 
 ```typescript
-export const REDIRECT_URI = 'Enter_the_Redirect_URI_Here'; // 参考文档：https://open.feishu.cn/document/uYjL24iN/uYjN3QjL2YzN04iN2cDN
+/**
+ * redirect_uri配置参考文档：https://open.feishu.cn/document/uYjL24iN/uYjN3QjL2YzN04iN2cDN
+ * 配置说明：在这里配置 redirect_uri 主要用于获取访问用户信息的 access_token。access_token 是开发者用户获取用户信息的唯一凭证
+ * 示例值：https://open.feishu.cn/
+ * 注意事项：必须与飞书开放平台-开发者后台-应用详情-安全设置-重定向 URL 列表中配置的 URL 保持一致
+ */
+export const REDIRECT_URI = 'Enter_the_Redirect_URI_Here';
 
 export const CLIENT_ID = 'Enter_the_Application_Id_Here';
 export const CLIENT_SECRET = 'Enter_the_Application_Secret_Here';
@@ -48,7 +64,14 @@ export const CLIENT_SECRET = 'Enter_the_Application_Secret_Here';
 
 ```typescript
 const CLIENT_ID = 'Enter_the_Application_Id_Here';
-const REDIRECT_URI = encodeURIComponent('Enter_the_Redirect_URI_Here'); // 参考文档：https://open.feishu.cn/document/uYjL24iN/uYjN3QjL2YzN04iN2cDN
+/**
+ * redirect_uri配置参考文档：https://open.feishu.cn/document/uYjL24iN/uYjN3QjL2YzN04iN2cDN
+ * 配置步骤：配置步骤与第一步保持一致
+ * 配置说明：这里配置 redirect_uri 用户构建网页应用二维码界面，SDK 会校验 redirect_uri 的合法性，如果与开发者后台中配置 redirect_uri 列表不一致，将会无法构建二维码界面。
+ * 示例值：https://open.feishu.cn/
+ * 注意事项：同第一步。
+ */
+const REDIRECT_URI = encodeURIComponent('Enter_the_Redirect_URI_Here');
 const goto = `https://www.feishu.cn/suite/passport/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&state=STATE`;
 const QRLoginObj = QRLogin({
 	id: 'qrCode',
@@ -64,7 +87,7 @@ const QRLoginObj = QRLogin({
 npm run dev
 ```
 
-即可打印出服务中的路由信息，以及访问 Sample 的 URL地址
+即可打印出服务中的路由信息，以及访问 Sample 的 URL 地址
 
 ```
 get ------- /
@@ -79,6 +102,10 @@ get ------- /v1/users/:user_id
   To create a production build, run npm run build.
 
 ```
+
+# Docker
+
+
 
 # 更多信息
 
