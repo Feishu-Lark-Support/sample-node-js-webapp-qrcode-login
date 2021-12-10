@@ -87,9 +87,9 @@ get ------- /v1/users/:user_id
 
 # Docker
 
-1. 确保你的电脑上可以正常运行 `Docker`，在命令行窗口输入 `docker --version` 验证，如未正常输入 docker 版本，请先按照安装指南按照 docker：[Get Docker](https://docs.docker.com/get-docker/)
-2. 按照 [上述步骤](#快速使用) 已经修改了 Sample 中的配置文件为 `.env`
-3. 在 macOS/Linux 端在命令行窗口执行命令 `sh exec.sh` 即可将服务运行在 Docker；或者输入命令 `.\exec.ps1` 到 Windows PowerShell 里执行就可以将服务运行在 Docker（如果无法直接执行，复制指令到 CMD 窗口运行）。
+1. 确保你的电脑上可以正常运行 `Docker`，在命令行窗口输入 `docker --version` 验证，如未正常输出 docker 版本，请先按照安装指南先安装 docker：[Get Docker](https://docs.docker.com/get-docker/)
+2. 按照 [上述步骤](#快速使用) 已经修改了 Sample 中的配置文件为 `.env`，并替换了其中变量的值
+3. 如果你是 macOS/Linux 用户，可以在命令行窗口执行命令 `sh exec.sh` 即可将服务运行在 Docker 中；如果你是 Windows 用户，先打开 PowerShell 输入命令 `.\exec.ps1` 并执行就可以将服务运行在 Docker（如果无法直接执行，可以复制 `.\exec.ps1` 中的指令到 CMD 窗口逐行执行）。
 
 # 更多信息
 
