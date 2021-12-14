@@ -37,12 +37,6 @@
 npm install
 ```
 
-如果卡顿或速度过慢时，可中断下载并尝试镜像下载
-
-```shell
-npm install --registry=https://registry.npm.taobao.org
-```
-
 # 快速使用
 
 1. 重命名 `.env.sample` 为 `.env`。
