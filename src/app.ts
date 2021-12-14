@@ -33,12 +33,11 @@ router.forEach((r) => {
 });
 
 app.listen(PORT, async () => {
-    const networkIp = await getMyIPAddress() || '127.0.0.1';
+    const networkIp = await getMyIPAddress() || process.env.DEFAULT_RUNTIME_IP;
     console.log(`  App running at:
-  - Local:   http://127.0.0.1:${PORT}/
+  - Local:   http://${process.env.DEFAULT_RUNTIME_IP}:${PORT}/
   - Network: http://${networkIp}:${PORT}/
 
   Note that the development build is not optimized.
-  To create a production build, run npm run build.
-`);
+  To create a production build, run npm run build.`);
 });

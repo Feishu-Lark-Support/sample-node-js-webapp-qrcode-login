@@ -51,16 +51,18 @@ npm install --registry=https://registry.npm.taobao.org
 cp .env.sample .env
 ```
 
-2. 分别替换变量 `CLIENT_ID`, `CLIENT_SECRET`  和 `REDIRECT_UR` 的值。
+2. 分别替换变量 `CLIENT_ID`, `CLIENT_SECRET` , `REDIRECT_UR` 和 `DEFAULT_RUNTIME_IP` 的值。
 
 - `CLIENT_ID` 和 `CLIENT_SECRET` 获取说明：[如何获取client_id和client_secret？](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/guide/faq#508869c1)
 - `REDIRECT_URI` 是用于获取访问用户信息的 `access_token`，`access_token` 是开发者获取用户信息的唯一凭证。配置并获取重定向URL说明：[配置重定向URL](https://open.feishu.cn/document/uYjL24iN/uYjN3QjL2YzN04iN2cDN)
+- `DEFAULT_RUNTIME_IP` 是服务默认访问 IP 地址
 
 ```typescript
 // 示例值
 CLIENT_ID=cli_xxxxx # 表示应用的 App_ID
 CLIENT_SECRET=xxxxx # 表示应用的 App_Secret
 REDIRECT_URI=http://127.0.0.1:9000/login
+DEFAULT_RUNTIME_IP=127.0.0.1
 ```
 
 2. 配置完信息后，在项目目录下执行如下命令
